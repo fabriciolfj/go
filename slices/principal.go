@@ -1,7 +1,3 @@
-# GO
-
-## Slice
-```
 package main
 
 import "fmt"
@@ -21,4 +17,3 @@ func main() {
 	fmt.Println(y)
 	fmt.Println(x) //como foi alterado o resultado agora e [1 2 11 12 13 6 7 8 9 10]
 }
-```
