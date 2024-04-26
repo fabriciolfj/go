@@ -22,3 +22,5 @@ func main() {
 	fmt.Println(x) //como foi alterado o resultado agora e [1 2 11 12 13 6 7 8 9 10]
 }
 ```
+
+- funcao de limpeza, chama-se defer
