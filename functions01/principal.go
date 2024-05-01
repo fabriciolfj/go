@@ -41,7 +41,15 @@ func add(base int, vals ...int) []int {
 	return out
 }
 
-func divAndRemainder(num, demon int) (result int, rest int, err error) {
+func divAndRemainder(num, demon int) (int, int, error) {
+	if demon == 0 {
+		return 0, 0, errors.New("cannot divide by zero")
+	}
+
+	return num / demon, num % demon, nil
+}
+
+func divAndRemainderNomeado(num, demon int) (result int, rest int, err error) {
 	if demon == 0 {
 		err := errors.New("cannot divide by zero")
 		return result, rest, err

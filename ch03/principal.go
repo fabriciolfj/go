@@ -42,4 +42,7 @@ func main() {
 
 	x = append(x, y...)
 	fmt.Println(x)
+
+	p := [][]int{{1, 1}, {2, 3}}
+	fmt.Println(p)
 }

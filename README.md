@@ -66,6 +66,26 @@ func update(px *int) {
 	*px = 20 //referencia ao ponteiro da variavel externa passada para essa funcao
 }
 ```
+- para slice, quando modifico valores dentro da capacidade da variavel original (tamanho 3, mudo index 0 1 e 2), são refletidos na mesma
+- quando adiciono valores, deixando slice maior que a original, esses não são repletidos no original
+```
+func addValues(list []int) {
+	list = append(list, 4, 5, 6)
+	list[0] = 9
+	list[1] = 8
+	list[2] = 7
+}
+
+func main() {
+	list := make([]int, 3, 6)
+
+	fmt.Println(list)
+
+	addValues(list)
+	fmt.Println(list)
+}
+
+```
 
 # Ponteiros via parâmetro
 - ideal quando usamos interface
@@ -76,3 +96,13 @@ func failUpdate(px *int) {
 	px = &x2
 }
 ```
+- se temos struct pequenos, é mais rápido passar o valor via parâmetro
+- no caso de struct com valores grandes, como 10mb, considere passar o ponteiro em vez do valor por questão de performance
+
+
+# garbage collection
+- em go gc e otimizado para baixa latência, ou seja, rodar rápido e limpar a maior quantidade de memória possível
+- é mais rapido limpar a memoria sem o uso de ponteiros, por isso go não recomenda o uso excessivo do mesmo
+- ponteiros são armazenados no heap, exigindo mais do gc, 
+- variaveis ficam no heap, facilitando o trabalho do gc, pois são armazenadas na memória de forma sequencial e não espalhada como os ponteiros
+- em java usa-se muito ponteiro, (ex: cada valor de uma list é um ponteiro), o que torna inificiente esse ponto em relação ao go

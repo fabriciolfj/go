@@ -19,4 +19,10 @@ func main() {
 
 		fmt.Println(i)
 	}
+
+	i := 1
+	for i < 100 {
+		fmt.Println(i)
+		i = i * 2
+	}
 }

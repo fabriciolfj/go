@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func deferEample() {
+func deferEample() int {
 	a := 10
 
 	defer func(val int) {
@@ -18,7 +18,7 @@ func deferEample() {
 	a = 30
 
 	fmt.Println("exiting:", a)
-
+	return a
 }
 
 func main() {
