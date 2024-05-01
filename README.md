@@ -59,3 +59,20 @@ func main() {
 ## mudança de valores
 - se passarmos primitivos ou structs para uma funcao, e essa modifica-os, não replete nos valores originais, pois o go passa uma cópia dos mesmos.
 - se passarmos um map ou um slice para uma função, e esta modifica-os, eles são alterados, pois go passa um ponteiro.
+- para alterar o parâmetro primitivo passado, usamos:
+```
+
+func update(px *int) {
+	*px = 20 //referencia ao ponteiro da variavel externa passada para essa funcao
+}
+```
+
+# Ponteiros via parâmetro
+- ideal quando usamos interface
+```
+func failUpdate(px *int) {
+	fmt.Println(px)
+	x2 := 20
+	px = &x2
+}
+```

@@ -17,4 +17,5 @@ func main() {
 	var y string
 	z := &y
 	fmt.Println(z)
+
 }
