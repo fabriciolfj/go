@@ -59,7 +59,7 @@ func main() {
 ## mudança de valores
 - se passarmos primitivos ou structs para uma funcao, e essa modifica-os, não replete nos valores originais, pois o go passa uma cópia dos mesmos.
 - se passarmos um map ou um slice para uma função, e esta modifica-os, eles são alterados, pois go passa um ponteiro.
-- para alterar o parâmetro primitivo passado, usamos:
+- para alterar o parâmetro passado, usamos pontiero como parâmetro:
 ```
 
 func update(px *int) {
@@ -106,3 +106,47 @@ func failUpdate(px *int) {
 - ponteiros são armazenados no heap, exigindo mais do gc, 
 - variaveis ficam no heap, facilitando o trabalho do gc, pois são armazenadas na memória de forma sequencial e não espalhada como os ponteiros
 - em java usa-se muito ponteiro, (ex: cada valor de uma list é um ponteiro), o que torna inificiente esse ponto em relação ao go
+
+# methods e funcoes
+- metodos estão atrelados  a um tipo, e este é invocuado apenas por ele, e se limita sua declarao a nivel de pacote
+- funcoes sao mais genericas e não estão atrelados a um tipo
+
+# ponteiros em methods
+- quando a funcao recepciona um ponteiro e e este possui um método que também recepciona um ponteiro, o valor será alterado quando invoca-lo
+- quando a funcao receptiona valor, e este possui um método que recepciona ponteiro, seu valor nao será alterado caso invoque-o
+````
+func executeIncrement(c Counter) {
+	c.Increment()
+}
+
+func executeIncrementModify(c *Counter) {
+	c.Increment()
+}
+
+func main() {
+	fmt.Println("inicio")
+	c := Counter{}
+	executeIncrement(c)
+	fmt.Println("executeIncrement", c.String())
+	executeIncrementModify(&c)
+	fmt.Println("executeIncrementModify", c.String())
+}
+````
+- um ponto importante, tanto para funcoes e métodos, para checar um valor nulo, deve-se receber um ponteiro e o valor passao também
+`````
+	var z *Counter //consegui verificar nulo
+	testNuloOrZeo(z)
+
+	var p Counter
+	testNuloOrZeo(&p) //nao consegui
+
+	func testNuloOrZeo(c *Counter) {
+	if c == nil {
+		fmt.Println("veio nulo")
+		return
+	}
+
+	c.Increment() //se chegar aqui como valor, nao faz nada se nao for instanciado
+	fmt.Println("executou")
+}
+`````

@@ -1,0 +1,11 @@
+Em Go, quando você deseja verificar se um valor é nulo (nil), você precisa trabalhar com ponteiros. Isso se aplica tanto para funções quanto para métodos.
+No exemplo de código que você forneceu, a função testNuloOrZeo recebe um ponteiro *Counter como argumento. Dentro da função, é feita uma verificação se o ponteiro é nulo (if c == nil). Se o ponteiro for nulo, a mensagem "veio nulo" é impressa e a função retorna, evitando qualquer outra operação com o valor nulo.
+Observações importantes sobre o seu exemplo:
+
+var z *Counter: Essa declaração cria um ponteiro z do tipo *Counter, porém não inicializa o valor apontado. Portanto, z é um ponteiro nulo.
+testNuloOrZeo(z): Ao chamar a função testNuloOrZeo com z, você está passando um ponteiro nulo, e a função imprimirá "veio nulo" e retornará sem executar o método Increment().
+var p Counter: Essa declaração cria um valor p do tipo Counter, mas não é um ponteiro.
+testNuloOrZeo(&p): Aqui, você está passando o endereço de p (&p) para a função testNuloOrZeo. Isso significa que o ponteiro c dentro da função apontará para o valor p. Como p foi inicializado (embora com um valor padrão do tipo Counter), o ponteiro c não será nulo, e a função executará o método Increment() em p.
+
+Portanto, a verificação de nulo é essencial quando você está lidando com ponteiros em Go, tanto para funções quanto para métodos. Se você tentar acessar ou modificar um valor através de um ponteiro nulo, ocorrerá um erro de runtime (panic).
+A abordagem de passar ponteiros e verificar se são nulos é uma prática comum em Go 
