@@ -18,7 +18,7 @@ func cal(val int, mult int) (int, func(), error) {
 }
 
 func main() {
-	r, fun, error := cal(1, 0)
+	r, fun, error := cal(1, 2)
 
 	if error != nil {
 		fmt.Println(error)

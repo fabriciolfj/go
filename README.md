@@ -150,3 +150,27 @@ func main() {
 	fmt.Println("executou")
 }
 `````
+
+# composição
+- quando tenho um struct dentro de outro, e esse interno possui um método, consigo chamar ele pelo struct "pai"
+```
+func (i Inner) IntPrinter(val int) string {
+	return fmt.Sprintf("inner: %d", val)
+}
+
+func (i Inner) Double() string {
+	return i.IntPrinter(i.A * 2)
+}
+
+func (o Outer) IntPrinter(val int) string {
+	return fmt.Sprintf("Outer: %d", val)
+}
+
+func main() {
+	o := Outer{
+		Inner: Inner{A: 10}, S: "hello",
+	}
+
+	fmt.Println(o.Double())
+}
+```
