@@ -39,8 +39,8 @@ func main() {
 	DoubleComparer(&d1, &d1)
 	//test(d1)
 
-	//var ds1 = DoubleSliceInt{1, 2, 3}
-	//var ds2 = DoubleSliceInt{1, 2, 3}
+	var ds1 = DoubleSliceInt{1, 2, 3}
+	var ds2 = DoubleSliceInt{1, 2, 3}
 
-	//DoubleComparer(ds1, ds2) //error
+	DoubleComparer(ds1, ds2) //error
 }
