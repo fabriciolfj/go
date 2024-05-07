@@ -132,7 +132,7 @@ func main() {
 	fmt.Println("executeIncrementModify", c.String())
 }
 ````
-- um ponto importante, tanto para funcoes e métodos, para checar um valor nulo, deve-se receber um ponteiro e o valor passao também
+- um ponto importante, tanto para funcoes e métodos, para checar um valor nulo, deve-se receber um ponteiro e o valor passado também
 `````
 	var z *Counter //consegui verificar nulo
 	testNuloOrZeo(z)
@@ -150,3 +150,8 @@ func main() {
 	fmt.Println("executou")
 }
 `````
+
+# interfaces
+- as interfaces são dinâmicas em go, ou seja, não precisamos deixa-las explicítas nas implementações
+- desde que as implementações respeitem seu contrato
+- um ponto que interfaces nao sao comparaveis, quando utiliza-se slides em suas implementações ou ponteiros.
