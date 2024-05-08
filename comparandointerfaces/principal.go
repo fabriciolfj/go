@@ -7,6 +7,11 @@ type Doubler interface {
 }
 
 type DoubleInt int
+type TestInt int
+
+func (d *TestInt) Double() {
+	*d = *d * 2
+}
 
 func (d *DoubleInt) Double() {
 	*d = *d * 2
@@ -37,10 +42,13 @@ func main() {
 
 	DoubleComparer(&d1, &d2)
 	DoubleComparer(&d1, &d1)
+
+	var t1 TestInt = 10
+	DoubleComparer(&d1, &t1)
 	//test(d1)
 
-	var ds1 = DoubleSliceInt{1, 2, 3}
-	var ds2 = DoubleSliceInt{1, 2, 3}
+	//var ds1 = DoubleSliceInt{1, 2, 3}
+	//var ds2 = DoubleSliceInt{1, 2, 3}
 
-	DoubleComparer(ds1, ds2) //error
+	//DoubleComparer(ds1, ds2) //error
 }

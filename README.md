@@ -151,12 +151,12 @@ func main() {
 }
 `````
 
-<<<<<<< HEAD
 # interfaces
 - as interfaces são dinâmicas em go, ou seja, não precisamos deixa-las explicítas nas implementações
 - desde que as implementações respeitem seu contrato
 - um ponto que interfaces nao sao comparaveis, quando utiliza-se slides em suas implementações ou ponteiros.
-=======
+
+
 # composição
 - quando tenho um struct dentro de outro, e esse interno possui um método, consigo chamar ele pelo struct "pai"
 ```
@@ -180,4 +180,8 @@ func main() {
 	fmt.Println(o.Double())
 }
 ```
->>>>>>> ca03fd758886cdc678199d30df1bf7a497313308
+
+# asserção
+- e para verificar o tipo de um any / interface
+- é executada em tempo de execução
+- diferente da conversão (que muda o valor), que é realizada em tempo de compilação (menos para ponteiros e slide)
