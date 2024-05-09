@@ -8,10 +8,13 @@ import "fmt"
 
 func main() {
 	//compartilha a mesma memoria
-	x := make([]int, 0, 5)
+	x := make([]int, 0, 5) //cria um slice de inteiros, com comprimento 0, e capacidade inicial de 5
 	x = append(x, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	//pega o valor 1 2
 	y := x[:2:5]
+
+	var test int //por default insere 0
+	
 
 	fmt.Println(y)
 
@@ -22,6 +25,19 @@ func main() {
 	fmt.Println(x) //como foi alterado o resultado agora e [1 2 11 12 13 6 7 8 9 10]
 }
 ```
+
+- explicacao
+````
+A sintaxe x[:2:5] cria um novo slice a partir do slice x, com os seguintes parâmetros:
+
+x: é o slice base a partir do qual o novo slice será criado.
+2: é o índice (não inclusivo) onde o novo slice deve terminar. Neste caso, o novo slice terminará no índice 2 (mas não incluirá o elemento nessa posição).
+5: é o comprimento máximo do novo slice. Isso determina a capacidade do novo slice, que é o tamanho máximo que ele pode crescer antes de precisar alocar um novo bloco de memória.
+
+Dessa forma, y := x[:2:5] cria um novo slice y com os seguintes atributos:
+
+Os elementos do slice y serão os elementos de x desde o índice 0 (início implícito) até o índice 2 (não inclusivo).
+````
 
 - funcao de limpeza, chama-se defer
 ```
@@ -185,3 +201,6 @@ func main() {
 - e para verificar o tipo de um any / interface
 - é executada em tempo de execução
 - diferente da conversão (que muda o valor), que é realizada em tempo de compilação (menos para ponteiros e slide)
+
+# injecao de dependencia
+- em go podemos usar o wine
