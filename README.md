@@ -171,7 +171,7 @@ func main() {
 - as interfaces são dinâmicas em go, ou seja, não precisamos deixa-las explicítas nas implementações
 - desde que as implementações respeitem seu contrato
 - um ponto que interfaces nao sao comparaveis, quando utiliza-se slides em suas implementações ou ponteiros.
-
+- um ponto importante que a interface e considerada nula, tanto o tipo subjacente quanto o valor, for nulo.
 
 # composição
 - quando tenho um struct dentro de outro, e esse interno possui um método, consigo chamar ele pelo struct "pai"
@@ -204,3 +204,84 @@ func main() {
 
 # injecao de dependencia
 - em go podemos usar o wine
+
+# tipo subjacente
+- para usar um tipo, que tenha no seu interior um tipo subjacente, utilize ~
+- no exemplo abaixo tenho MyInt, mas uma interface que usa int, posso declarar que ela aceita tipos subjacentes com ˜int
+```
+type Integer interface {
+	˜int
+} 
+
+type MyInt int
+
+func metodo[T Integer](num T) {
+	--
+}
+
+var my MyInt = 10
+metodo(10)
+```
+
+# enum em go
+- go não possui enum, um exemplo seria utilizar o recurso iota
+```
+package main
+
+import "fmt"
+
+var Status int
+
+const (
+	VALID = iota
+	INVALID
+	ERROR
+)
+
+func main() {
+	fmt.Println(VALID, INVALID, ERROR)
+}
+
+```
+- iota preenche as demais constante seguindo o valor, como zero é default para int, invalid será 1 e error será 2 
+
+# error
+- em go por padrão temos o error de uma variavel de erro
+- quando não corre falha, esta permanece como nil
+- o codigo chamador da função pode verificar a variavel error != nil ou ignorar ela com _ (que deixa explícito que estamos ignorando a variavel)
+- a mensagem de erro deve ser tudo minuscula e sem pontos no final.
+- exemplo de criação de constantes de erro em go
+```
+package main
+
+import (
+    "errors"
+    "fmt"
+)
+
+var (
+    // ErrInvalidInput é retornado quando a entrada é inválida
+    ErrInvalidInput = errors.New("entrada inválida")
+
+    // ErrNotFound é retornado quando o item não foi encontrado
+    ErrNotFound = errors.New("item não encontrado")
+)
+
+func processInput(input string) error {
+    if input == "" {
+        return ErrInvalidInput
+    }
+    // Processa a entrada válida
+    return nil
+}
+
+func main() {
+    err := processInput("")
+    if err != nil {
+        fmt.Println(err) // Imprime "entrada inválida"
+        if errors.Is(err, ErrInvalidInput) {
+            fmt.Println("Erro de entrada inválida")
+        }
+    }
+}
+```

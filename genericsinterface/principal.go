@@ -41,7 +41,7 @@ func (p2 Point2D) Diff(from Point2D) float64 {
 }
 
 func main() {
-	pair2Da := Pair[Point2D]{Point2D{1, 1}, Point2D{5, 5}}
+	pair2Da := Pair[Point2D]{Val1: Point2D{1, 1}, Val2: Point2D{5, 5}}
 	pair2Db := Pair[Point2D]{Point2D{10, 10}, Point2D{15, 5}}
 	closer := FindCloser(pair2Da, pair2Db)
 
