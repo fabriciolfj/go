@@ -285,3 +285,83 @@ func main() {
     }
 }
 ```
+
+# error sentinela
+```
+Em Go, um erro sentinela é um valor especial de erro definido em um pacote que indica uma condição específica. É uma prática comum em Go usar valores de erro sentinela para indicar erros específicos conhecidos.
+O pacote errors do Go define a função New que cria um novo valor de erro com uma mensagem específica. No entanto, muitas vezes é útil distinguir diferentes tipos de erros para tomar decisões com base neles.
+Um exemplo clássico de um erro sentinela é io.EOF, que é retornado por funções de E/S quando elas encontram o fim de um fluxo de dados. Isso permite que o código do aplicativo distinga entre um erro real e o fim normal dos dados.
+```
+
+# funcao as no error
+```
+O operador as é usado para verificar se o valor concreto armazenado em uma interface é do tipo especificado. Ele retorna um valor booleano true se o valor concreto for do tipo especificado, caso contrário, retorna false.O operador as é usado para verificar se o valor concreto armazenado em uma interface é do tipo especificado. Ele retorna um valor booleano true se o valor concreto for do tipo especificado, caso contrário, retorna false.
+
+err := fmt.Errorf("ocorreu um erro")
+if errors.As(err, &os.PathError{}) {
+    // O valor concreto de err é do tipo *os.PathError
+}
+```
+
+
+# fun is no error
+```
+O operador as é usado para realizar uma asserção de tipo e extrair o valor concreto armazenado em uma interface. Se a asserção for bem-sucedida, o valor concreto é atribuído à variável especificada, e a operação retorna true. Caso contrário, a variável recebe o valor zero do tipo especificado, e a operação retorna false.
+
+Is e comunente usado para verificar erros sentinela se ocorreu
+
+file, err := os.Open("file.txt")
+if err != nil {
+    if errors.Is(err, os.ErrNotExist) {
+        // Arquivo não existe
+        fmt.Println("O arquivo não existe")
+    } else if errors.Is(err, os.ErrPermission) {
+        // Permissão negada
+        fmt.Println("Permissão negada para abrir o arquivo")
+    } else {
+        // Outro erro
+        fmt.Println("Erro ao abrir o arquivo:", err)
+    }
+}
+```
+
+# diferenca entre is e as
+- is compara seu error por outro forneceido, este pode ser um sentinela (uso dentro de um if)
+- compara seu erro pertence a alguma classe concreta a atribuido no ponteiro passado, onde pode ser utilizado dentro do bloco if 
+
+# encapsulando varios erros
+- quando tenho varias checagens aonde emito o mesmo erro com a mesma mensagem, posso usar o defer para simplificar o codigo
+- lembrando que funcao defer e executada antes do return, na ordem inversa de declaracao (da ultima para primeira)
+````
+func doThing1() (string, error) {
+	return "", errors.New("teste1")
+}
+
+func doThing2() (string, error) {
+	return "", errors.New("teste2")
+}
+
+func doSomeThings() (_ string, err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("in doSomeThings: %w", err)
+		}
+	}()
+
+	val1, err := doThing1()
+	if err != nil {
+		return val1, err
+	}
+
+	return doThing2()
+}
+
+func main() {
+	var err error
+	var result string
+	result, err = doSomeThings()
+	fmt.Println(err, result)
+}
+
+
+````
