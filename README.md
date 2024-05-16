@@ -365,3 +365,33 @@ func main() {
 
 
 ````
+
+#  recover
+- quando temos um falha, uma forma de se recuperar dela e utilizar o mecanismo de recover
+- este deve estar dentro de um defer, pois apenas funcoes adiadas são executadas após uma falha
+- o uso de recover se reserve a erros fatais e não tratativas de exceptions
+
+
+# pacotes
+- para importar um modulo dentro da classe (que estao em outros subdiretorios), primeiro:
+ - crie o go mod init exemple.com/nome
+ - no import, supondo que esta nome/package, import ficaria assim exemple.com/nome/package
+
+````
+package main
+
+import (
+	"fmt"
+
+	"example.com/system/format"
+
+	"example.com/system/math"
+)
+
+func main() {
+	num := math.Double(2)
+	output := format.Number(num)
+	fmt.Println(output)
+}
+
+````
