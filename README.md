@@ -395,3 +395,9 @@ func main() {
 }
 
 ````
+
+# pacotes internal
+- quando declaramos pacote com o nome internal, dentro de outro package, as funções dentro do mesmo ficam visíveis apenas dentro do package pai e nos pacotes internos dentro do mesmo pai
+
+# dependencia circular
+- go não permite dependencia circular
