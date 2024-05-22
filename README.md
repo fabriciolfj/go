@@ -442,3 +442,6 @@ go work use workspace_use (modulo que estou usando)
 replace github.com/fabriciolfj/workspace_lib => github.com/seu-usuario/workspace_lib v2.0.0
 
 ```
+- ou para mudar para versao 2, crie um path no repositorio v2, coloque os arquivos dentro dele, incluindo o go.mod atualizado para repositorio/v2
+- crie uma tag com esse novo path para v2.0.0
+- atualize o local de uso do modulo, acrescento o sufixo v2 e a versao v2.0.2
