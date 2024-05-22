@@ -401,3 +401,38 @@ func main() {
 
 # dependencia circular
 - go não permite dependencia circular
+
+# dependencia indireta
+- quando um modulo que importo, importa outras dependencias que ele necessita 
+
+# versoes das dependencias (modulos)
+- para baixar as dependências, execute:
+```
+go get
+```
+- para baixar uma versão especifica de um modulo ou import
+```
+go get modulo@versao
+```
+- para verificar as versoes das dependencias, check o arquivo go.mod
+- por default go pega as ultimas versoes
+
+# alguns conceitos
+- Módulo: Uma coleção de pacotes Go versionados juntos.
+- Dependência de módulo: Um módulo externo que seu módulo depende e importa.
+
+```
+Então, quando você diz "eu tenho dois módulos que usam a mesma dependência, mas com versões diferentes", você está se referindo a dois módulos diferentes que dependem de versões diferentes de um terceiro módulo.
+O gerenciamento dessas dependências de módulos, incluindo a escolha de versões específicas, é uma das principais tarefas do sistema de Go Modules.
+```
+- quando criamos um modulo com github.com/seurepo/projeto, ao dar um get ./.., go tentará baixar o modulo de la
+- caso ainda não tenha enviado o modulo ap git, vá no diretório raiz e execute work init/work use, para usar o modulo localmente
+- nao commite o arquivo go.work
+```
+go work init workspace_lib (modulo que vou precisar)
+go work use workspace_use (modulo que estou usando)
+
+```
+- para importar um modulo do git, informe o mesmo como requirido no go.mod do seu modulo
+- execute na raiz do seu modulo go ./get...
+- caso seu modulo dependa de outro seu, e não queria utilizar local, envio ao github
