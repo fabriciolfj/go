@@ -436,3 +436,9 @@ go work use workspace_use (modulo que estou usando)
 - para importar um modulo do git, informe o mesmo como requirido no go.mod do seu modulo
 - execute na raiz do seu modulo go ./get...
 - caso seu modulo dependa de outro seu, e não queria utilizar local, envio ao github
+- para projetos novos, go nao permite versao de dependencia acima de v1
+- caso necessite, utilze o replace (obs deve estar em outro usuario)
+```
+replace github.com/fabriciolfj/workspace_lib => github.com/seu-usuario/workspace_lib v2.0.0
+
+```
