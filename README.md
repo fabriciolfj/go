@@ -444,4 +444,42 @@ replace github.com/fabriciolfj/workspace_lib => github.com/seu-usuario/workspace
 ```
 - ou para mudar para versao 2, crie um path no repositorio v2, coloque os arquivos dentro dele, incluindo o go.mod atualizado para repositorio/v2
 - crie uma tag com esse novo path para v2.0.0
-- atualize o local de uso do modulo, acrescento o sufixo v2 e a versao v2.0.2
+- atualize o local de uso do modulo, acrescento o sufixo v2 e a versao v2.0.2go
+
+
+# verificador de codigo
+- ferramenta ideal é o staticcheck, para instalar: (lembrando de mudar o local da instalação, alterando a variável de ambiente GOBIN)\
+```
+go install honnef.co/go/tools/cmd/staticcheck@latest
+```
+- para examinar, execute dentro do seu módulo ./staticcheck ./...
+- outra ferramenta para verificar a qualidade do código é a revive
+```
+go install github.com/mgechev/revive@latest
+```
+  - podemos inclusive adicionar mais regras de verificação, adicionando um arquivo no local do module com nome build_in.toml
+```
+[rule.redefines-builtin-id] (para verificar sombreamento de variáveis)
+```
+- para executar a verificação, execute:
+```
+revive -config build_in.toml ./...
+```
+- para ver mais regras olhe https://revive.run/r
+- uma ferramenta que possui diversas outras, é o golangci (recomendavel instalar o binario golangci-lint)
+- podemos também personalizar sua verificação, colocando um arquivo no local de execução com nome .golangci.yml
+```
+linters:
+  enable:
+    - govet
+	- predeclared
+linters-settings:
+  govet:
+    check-shadowing: true
+	settings:
+	  shadow:
+	    strict: true
+    enable-all: true
+
+```
+- para executar: golangci-lint run
