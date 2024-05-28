@@ -483,3 +483,8 @@ linters-settings:
 
 ```
 - para executar: golangci-lint run
+- para verificar alguma vulnerabildiade de segurança nas suas libs ou de tercerios, podemos utilizar o govulncheck
+```
+go install golang.org/x/vuln/cmd/govulncheck@latest
+```
+- para executar: govulncheck ./...echo
