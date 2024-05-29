@@ -487,4 +487,99 @@ linters-settings:
 ```
 go install golang.org/x/vuln/cmd/govulncheck@latest
 ```
-- para executar: govulncheck ./...echo
+- para executar: govulncheck ./...
+- para o binario govulncheck -mode binary vulnerable
+
+
+# arquivos com go
+- para carregar algum arquivo, que estja junto com seu código, podemos utilizar o go:embed (utiliza-se o mesmo em uma váriavel de instancia e como comentario). Exemplo:
+```
+package main
+
+import (
+	"embed"
+	"fmt"
+	"io/fs"
+	"os"
+	"strings"
+)
+
+//go:embed help
+var helpInfo embed.FS
+
+func main() {
+	if len(os.Args) == 1 {
+		printHelpFiles()
+		os.Exit(0)
+	}
+	data, err := helpInfo.ReadFile("help/" + os.Args[1])
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	fmt.Println(string(data))
+}
+
+func printHelpFiles() {
+	fmt.Println("contents:")
+	fs.WalkDir(helpInfo, "help",
+		func(path string, d fs.DirEntry, err error) error {
+			if !d.IsDir() {
+				_, fileName, _ := strings.Cut(path, "/")
+				fmt.Println(fileName)
+			}
+			return nil
+		})
+}
+
+```
+
+# proto em go
+- similar ao arquivo,para transformar o arquivo proto para uso no código, usamos comentários para compilar o mesmo
+```
+package main
+
+import (
+	"fmt"
+	"github.com/learning-go-book-2e/proto_generate/data"
+	"google.golang.org/protobuf/proto"
+)
+
+//go:generate protoc -I=. --go_out=. --go_opt=module=github.com/learning-go-book-2e/proto_generate --go_opt=Mperson.proto=github.com/learning-go-book-2e/proto_generate/data person.proto
+func main() {
+	p := &data.Person{
+		Name:  "Bob Bobson",
+		Id:    20,
+		Email: "bob@bobson.com",
+	}
+	fmt.Println(p)
+	protoBytes, _ := proto.Marshal(p)
+	fmt.Println(protoBytes)
+	var p2 data.Person
+	proto.Unmarshal(protoBytes, &p2)
+	fmt.Println(&p2)
+}
+```
+- execute go generate ./..., depois go build (obs precisamos do protoc-gen-go instalado na maquina)
+````
+go install google.golang/org/protobuf/cmd/protoc-gen-go@v1.28
+````
+
+# springer
+- a deficiênica do go com enums (iota) é printar ou utilizar como nomes, podemos fazer isso através do stringer (também como comentario)
+````
+
+const ( _Direction = iota
+		North
+		South
+)
+//go:generate stringer -type=Direction
+fun main() {
+	fmt.Println(North.String())
+}
+````
+
+# compilando para sistemas operacionais diferentes e arquiteturas de cpu
+- o go e compilado nativo no so executado, ou seja, ele não funciona em um so diferente
+- para compilar para um so ou arquitetura diferentes, devemos informar nas variaveis de ambiente: GOOS=""  e GOARCH=""
+- podemos informar esses dados no comentario antes do pacote do arquivo //go:build (linux) por exemplo
