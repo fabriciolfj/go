@@ -102,6 +102,13 @@ func main() {
 }
 
 ```
+# ponteiro
+```
+Em relação ao uso de & e *:
+
+& é o operador de obtenção de endereço. Quando você coloca & antes de uma variável, você está obtendo o endereço de memória onde o valor dessa variável está armazenado.
+* é o operador de desreferenciação. Quando você coloca * antes de um ponteiro, você está acessando o valor apontado por esse ponteiro.
+```
 
 # Ponteiros via parâmetro
 - ideal quando usamos interface
