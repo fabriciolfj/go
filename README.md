@@ -229,6 +229,33 @@ func metodo[T Integer](num T) {
 var my MyInt = 10
 metodo(10)
 ```
+#convencao
+```
+Em Go, a convenção de nomenclatura para métodos e funções segue as seguintes regras:
+Métodos:
+Por convenção, os métodos devem ser nomeados com uma letra maiúscula como primeira letra. Isso torna o método exportado (visível fora do pacote onde foi definido). Por exemplo:
+goCopy codetype Pessoa struct {
+    Nome string
+}
+
+func (p Pessoa) NomeCompleto() string {
+    // Lógica do método
+}
+No exemplo acima, o método NomeCompleto inicia com uma letra maiúscula, tornando-o visível fora do pacote onde Pessoa foi definido.
+Funções:
+Para funções, a convenção é diferente de métodos. As funções que devem ser visíveis fora do pacote (exportadas) devem iniciar com uma letra maiúscula, enquanto funções privadas (visíveis apenas dentro do pacote) devem iniciar com uma letra minúscula. Por exemplo:
+goCopy code// FuncaoExportada é visível fora do pacote
+func FuncaoExportada() {
+    // Lógica da função
+}
+
+// funcaoPrivada é visível apenas dentro do pacote
+func funcaoPrivada() {
+    // Lógica da função
+}
+Essa convenção de nomenclatura é uma prática recomendada pela comunidade Go e segue o princípio da visibilidade de código (code visibility). Ela permite que os autores de pacotes controlem quais partes do código devem ser expostas publicamente (exportadas) e quais devem ser privadas (não exportadas).
+Seguir essas convenções torna o código Go mais legível, consistente e facilita a compreensão do escopo de visibilidade dos métodos e funções. É uma boa prática seguir essas convenções ao escrever código Go, a menos que haja uma razão específica para desviar-se delas.
+```
 
 # enum em go
 - go não possui enum, um exemplo seria utilizar o recurso iota
