@@ -229,7 +229,7 @@ func metodo[T Integer](num T) {
 var my MyInt = 10
 metodo(10)
 ```
-#convencao
+# convencao
 ```
 Em Go, a convenção de nomenclatura para métodos e funções segue as seguintes regras:
 Métodos:
