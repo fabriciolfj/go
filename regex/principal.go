@@ -30,7 +30,7 @@ func ParseBooksFromFile(filename string) ([]Book, error) {
 
 	for scanner.Scan() {
 		matches := bookDetailsPattern.FindStringSubmatch(scanner.Text())
-		fmt.Println(scanner.Text())
+		fmt.Println(matches)
 
 		if matches != nil && len(matches) == 4 {
 			title := matches[1]
