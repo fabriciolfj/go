@@ -617,3 +617,6 @@ fun main() {
 - o go e compilado nativo no so executado, ou seja, ele não funciona em um so diferente
 - para compilar para um so ou arquitetura diferentes, devemos informar nas variaveis de ambiente: GOOS=""  e GOARCH=""
 - podemos informar esses dados no comentario antes do pacote do arquivo //go:build (linux) por exemplo
+
+# websockets
+- para uso de comunicação entre sockets, utilize a lib gorilla
