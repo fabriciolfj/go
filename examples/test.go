@@ -16,12 +16,17 @@ func main() {
 	}
 
 	v := []int{1, 2, 3, 4}
+	z := []int{5, 6, 7, 8}
 
-	for i, v := range v {
+	p := make([]int, 0, 10)
+	p = append(p, v...)
+	p = append(p, z...)
+
+	for i, q := range p {
 		if i == 2 {
 			continue
 		}
 
-		fmt.Println(v)
+		fmt.Println(q)
 	}
 }
